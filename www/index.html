@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <!-- Twitter Bootstrap -->
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrapSwitch.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-modal.css" />
+        <!-- Application -->
+        <link rel="stylesheet" type="text/css" href="css/app.css" />
+        <title>Client Capture</title>
+        <!-- Cordova -->
+        <script type="text/javascript" src="phonegap.js"></script>
+        <!-- jQuery -->
+        <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+        <!-- Twitter Bootstrap -->
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/bootstrapSwitch.js"></script>
+        <script type="text/javascript" src="js/bootstrap-modalmanager.js"></script>
+        <script type="text/javascript" src="js/bootstrap-modal.js"></script>
+        <!-- Application -->
+        <script type="text/javascript" src="js/config.js"></script>
+        <script type="text/javascript" src="js/notify.js"></script>
+        <script type="text/javascript" src="js/server.js"></script>
+        <script type="text/javascript" src="js/data.js"></script>
+        <script type="text/javascript" src="js/models.js"></script>
+        <script type="text/javascript" src="js/interface.js"></script>
+        <script type="text/javascript" src="js/util.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
+    </head>
+    <body id="contentLayout">
+
+      <!-- HEADER -->
+      <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+          <p class="app-title pull-left">Client Capture v0.1</p>
+          <p id="initEvent" class="event processing pull-right">Initializing</p>
+        </div>
+      </div>
+
+      <!-- BODY -->
+      <div class="container-fluid">
+
+        <!-- PAGE: LOGIN -->
+        <div id="pageLogin" class="page hide">
+          <div class="row-fluid">
+            <div class="span12">
+              <div class="spacer">
+                &nbsp;
+              </div>
+              <div>
+                <label for="loginUsername">LOGIN</label>
+              </div>
+              <div class="spacer">
+                &nbsp;
+              </div>
+              <div>
+                <input type="text" id="loginUsername" class="span12" placeholder="Username">
+              </div>
+              <div>
+                <input type="password" id="loginPassword" class="span12" placeholder="PIN">
+              </div>
+              <div class="spacer">
+                &nbsp;
+              </div>
+              <div>
+                <button id="actLogin" class="btn btn-mobile btn-success span12"
+                  onClick="App.login($('#loginUsername').val(), $('#loginPassword').val());">Login</button>
+              </div>
+              <div class="spacer">
+                &nbsp;
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- PAGE END: LOGIN -->
+
+        <!-- PAGE: HOME -->
+        <div id="pageHome" class="page hide">
+          <div class="row-fluid">
+            <div class="span12">
+              <div>
+                <button class="btn btn-mobile span12" onClick="Data.refreshAppMeta();">Synchronize Data</button>
+              </div>
+              <div>
+                <button class="btn btn-mobile span12" onClick="App.startCapture();">Capture Clients</button>
+              </div>
+              <div class="spacer">
+                &nbsp;
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- PAGE END: HOME -->
+
+        <!-- PAGE: CAPTURE MAIN -->
+        <div id="pageCaptureMain" class="page">
+          <div class="row-fluid">
+            <div class="span12">
+              <div>
+                <input type="text" id="inpName" class="span12 text-input" placeholder="Name" data-target="evalCustomer">
+              </div>
+              <div>
+                <input type="text" id="inpSurname" class="span12 text-input" placeholder="Surname" data-target="evalCustomer">
+              </div>
+              <div>
+                <input type="text" id="inpEmail" class="span12 text-input" placeholder="Email" data-target="evalCustomer">
+              </div>
+              <div>
+                <input type="text" id="inpCell" class="span12 text-input" placeholder="Cellphone number" data-target="evalCustomer">
+              </div>
+              <div>
+                <button id="actItem" class="btn btn-mobile span12"
+                  onClick="Interface.listFromTable(Table.Item, {}, 'name', App.setItem, false, 'Select Item');">
+                  Select Item</button>
+              </div>
+              <div class="spacer">
+                &nbsp;
+              </div>
+              <div>
+                <button id="actSave" class="btn btn-mobile btn-success span12" disabled
+                  onClick="App.saveClient();">Save Client</button>
+              </div>
+              <div class="spacer">
+                &nbsp;
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- PAGE END: CAPTURE MAIN -->
+
+        <!-- PAGE: LIST SELECT -->
+        <div id="pageListSelect" class="page hide">
+          <div class="row-fluid">
+            <div id="listDataContent" class="span12">
+            </div>
+          </div>
+        </div>
+        <!-- PAGE END: LIST SELECT -->
+
+      </div>
+
+      <!-- FOOTER -->
+      <div class="navbar navbar-inverse navbar-fixed-bottom">
+        <div class="navbar-inner">
+          <ul id="contextNav" class="nav pull-right" style="display: none">
+					  <li><a class="handy" onClick="Interface.loadPage('Location');">Change Location</a></li>
+					</ul>
+          <div class="navtext white pull-left location">&nbsp;</div>
+        </div>
+      </div>
+
+      <!-- LOADER -->
+      <div id="modalStaticNotify" class="modal modal-static hide fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+        <div class="modal-body">
+          <center><p><br/><span id="modalStaticNotifyContent" class="blink">LOADING</span><br/>&nbsp;</p></center>
+        </div>
+      </div>
+    </body>
+
+
+    <!-- Load up the app -->
+		<script type="text/javascript">
+
+      $(function() {
+				$.fn.modalmanager.defaults.resize = true;
+				$('[data-source]').each(function() {
+				  var $this = $(this),
+				    $source = $($this.data('source'));
+				  var text = [];
+				  $source.each(function(){
+				    var $s = $(this);
+				    if ($s.attr('type') == 'text/javascript'){
+				      text.push($s.html().replace(/(\n)*/, ''));
+				    } else {
+				      text.push($s.clone().wrap('<div>').parent().html());
+				    }
+				  });
+				  $this.text(text.join('\n\n').replace(/\t/g, '    '));
+				});
+      });
+
+
+			$(document).ready(function() {
+			  $('body').modalmanager({backdropLimit: 1});
+			  $(document).bind('deviceready', function() {
+			    App.initialize();
+		    });
+			  $('.btn').click(function() {
+			    var btn = $(this);
+          btn.prop('disabled', true);
+			    btn.addClass('active');
+			    setTimeout(function() {
+			      btn.removeClass('active');
+			      btn.prop('disabled', false);
+			    }, 500);
+			  });
+			  $('.text-input').keyup(function() {
+			    App[$(this).attr('data-target')]($(this).attr('id'), $(this).val());
+			  });
+			});
+
+		</script>
+</html>
