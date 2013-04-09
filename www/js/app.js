@@ -121,8 +121,10 @@ var App = {
     // ****************************** AUTHENTICATION ********************************* //
     // Authentication
     login: function (username, password) {
+      Notify.notifyStatic('Authenticating...');
       App.authData = {"username": username, "password": password};
       Server.post('authentication/login', App.authData, function (jsonResult) {
+        Notify.hideStatic();
         if ('Error' == jsonResult.Status) {
           Notify.alert('Oops', jsonResult.Message);
         } else if ('Success' == jsonResult.Status) {
@@ -133,6 +135,7 @@ var App = {
           }
         }
       }, function(jqXHR, textStatus, errorThrown) {
+        Notify.hideStatic();
         Notify.alert('Oops', 'Could not reach the server. Please ensure you are connected to the internet and try again.');
       });
     },
@@ -182,7 +185,7 @@ var App = {
       Session.surname = $('#inpSurname').val();
       Session.email   = $('#inpEmail').val();
       Session.cell    = $('#inpCell').val();
-      slert(JSON.stringify(Session));
+      alert(JSON.stringify(Session));
       // Save entry
       Data.save(Table.Customer, Session.id, Session, function(data) {
         Notify.alert('Done', 'Customer successfully saved.');
