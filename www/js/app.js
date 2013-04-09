@@ -185,7 +185,6 @@ var App = {
       Session.surname = $('#inpSurname').val();
       Session.email   = $('#inpEmail').val();
       Session.cell    = $('#inpCell').val();
-      alert(JSON.stringify(Session));
       // Save entry
       Data.save(Table.Customer, Session.id, Session, function(data) {
         Notify.alert('Done', 'Customer successfully saved.');
