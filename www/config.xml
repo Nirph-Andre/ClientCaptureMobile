@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.nirph.clientcapture" version="2.3.0" versionCode="1">
-    <name>Asset Capture</name>
+    <name>Client Capture</name>
 
     <description>Quick Client Capture v0.1</description>
 
