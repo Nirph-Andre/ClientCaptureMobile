@@ -127,10 +127,9 @@ var App = {
           Notify.alert('Oops', jsonResult.Message);
         } else if ('Success' == jsonResult.Status) {
           App.authenticated = true;
+          Interface.loadPage('Home');
           if (App.firstRun) {
             Data.refreshAppMeta();
-          } else {
-            Interface.loadPage('Home');
           }
         }
       }, function(jqXHR, textStatus, errorThrown) {
