@@ -121,10 +121,8 @@ var App = {
     // ****************************** AUTHENTICATION ********************************* //
     // Authentication
     login: function (username, password) {
-      Notify.notifyStatic('Authenticating...');
       App.authData = {"username": username, "password": password};
       Server.post('authentication/login', App.authData, function (jsonResult) {
-        Notify.hideStatic();
         if ('Error' == jsonResult.Status) {
           Notify.alert('Oops', jsonResult.Message);
         } else if ('Success' == jsonResult.Status) {
@@ -135,7 +133,6 @@ var App = {
           }
         }
       }, function(jqXHR, textStatus, errorThrown) {
-        Notify.hideStatic();
         Notify.alert('Oops', 'Could not reach the server. Please ensure you are connected to the internet and try again.');
       });
     },

@@ -651,9 +651,11 @@ var Data = {
       };
       if (synchMode == Data.SYNCH_FROM_SERVER) {
         // Downstream only, no local changes
+        alert('table not pushing data: ' + table);
         callback(table, synchData);
         return;
       }
+      alert('table IS pushing data: ' + table);
       var errorCallback = errorCallback ? errorCallback : Data.queryError;
       var stmnt = '';
 
@@ -698,6 +700,7 @@ var Data = {
         App.dbFail(err.message);
         return true;
       }, function() {
+        alert(JSON.stringify(synchData));
         callback(table, synchData);
       });
     },
