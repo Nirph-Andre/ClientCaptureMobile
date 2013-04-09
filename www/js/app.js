@@ -155,16 +155,16 @@ var App = {
     resetCustomer: function() {
       Session = {};
       Session.item_id = 0;
-      $('actItem').html('Select Item');
-      $('inpName').val('');
-      $('inpSurname').val('');
-      $('inpEmail').val('');
-      $('inpCell').val('');
+      $('#actItem').html('Select Item');
+      $('#inpName').val('');
+      $('#inpSurname').val('');
+      $('#inpEmail').val('');
+      $('#inpCell').val('');
     },
     evalCustomer: function() {
       if (0 == Session.item_id
-          || '' == $('#name').val()
-          || '' == $('#email').val()
+          || '' == $('#inpName').val()
+          || '' == $('#inpEmail').val()
           ) {
         $('#actSave').prop('disabled', true);
       } else {
@@ -173,15 +173,16 @@ var App = {
     },
     setItem: function(id, name) {
       Session.item_id = id;
-      $('actItem').html(name);
+      $('#actItem').html(name);
       App.evalCustomer();
     },
     saveClient: function() {
       // Data
-      Session.name    = $('inpName').val();
-      Session.surname = $('inpSurname').val();
-      Session.email   = $('inpEmail').val();
-      Session.cell    = $('inpCell').val();
+      Session.name    = $('#inpName').val();
+      Session.surname = $('#inpSurname').val();
+      Session.email   = $('#inpEmail').val();
+      Session.cell    = $('#inpCell').val();
+      slert(JSON.stringify(Session));
       // Save entry
       Data.save(Table.Customer, Session.id, Session, function(data) {
         Notify.alert('Done', 'Customer successfully saved.');
